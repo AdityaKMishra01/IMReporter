@@ -14,7 +14,6 @@ IMReporter is a **live crime reporting web application** that enables users to *
 - **Anonymous Reporting**: Users can report crimes without revealing their identity.
 - **Emergency Contacts**: Quick access to police, CBI, and other emergency contacts.
 - **Live Notifications**: Users get updates on new crimes in their area.
-- **Twitter Integration**: Option to tweet crime reports for wider awareness.
 
 ---
 
@@ -22,55 +21,20 @@ IMReporter is a **live crime reporting web application** that enables users to *
 
 ### **Frontend**
 - React.js
-- Tailwind CSS / Bootstrap
 - React Router
-- Leaflet.js (for maps)
 
 ### **Backend**
 - Node.js
 - Express.js
 - MongoDB (Mongoose)
 - Cloudinary (for image storage)
-- TensorFlow.js (for AI-based legal article suggestion)
+- OpenAI (for AI-based legal article suggestion)
 
 ### **APIs & Services**
 - **Cloudinary**: To store crime report images.
 - **Google Maps API** / **Leaflet.js**: For interactive crime mapping.
-- **TensorFlow.js** / **OpenAI API**: To analyze crime descriptions and suggest legal articles.
+- **OpenAI API**: To analyze crime descriptions and suggest legal articles.
 - **Crime Data API** (Indian Government Open Data): To fetch crime statistics.
-
----
-
-## 📁 Folder Structure
-
-```plaintext
-IMReporter/
-│-- backend/
-│   │-- config/
-│   │   ├── cloudinary.js      # Cloudinary configuration
-│   │   ├── db.js              # MongoDB connection
-│   │-- controllers/
-│   │   ├── crimeController.js # Handles crime reports
-│   │-- models/
-│   │   ├── Crime.js           # Crime schema
-│   │-- routes/
-│   │   ├── crimeRoutes.js     # Crime API endpoints
-│   │-- middlewares/
-│   │   ├── uploadMiddleware.js # Image upload handling
-│   │-- server.js              # Main backend entry point
-│
-│-- frontend/
-│   │-- src/
-│   │   ├── components/        # React components
-│   │   ├── pages/             # App pages
-│   │   ├── api/               # API calls
-│   │   ├── App.js             # Main app component
-│   │   ├── index.js           # React entry point
-│
-│-- README.md
-│-- package.json
-│-- .env (for API keys)
-```
 
 ---
 
