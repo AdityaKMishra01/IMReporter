@@ -1,3 +1,4 @@
+
 # IMReporter
 
 IMReporter is a **live crime reporting web application** that enables users to **report crimes in their local area** by uploading crime details, images, and descriptions. The application uses **AI to determine relevant Indian legal articles** based on the crime description. It also provides **crime statistics** for various locations and features an interactive **crime map** to visualize reported incidents.
@@ -106,4 +107,3 @@ This project is **open-source** under the MIT License.
 
 ## 🌟 Show Some Love
 If you like this project, please ⭐ the repository! 😊
-
