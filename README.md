@@ -100,10 +100,5 @@ git push origin feature-branch
 
 ---
 
-## 📜 License
-This project is **open-source** under the MIT License.
-
----
-
 ## 🌟 Show Some Love
 If you like this project, please ⭐ the repository! 😊
