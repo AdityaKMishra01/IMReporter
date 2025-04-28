@@ -55,7 +55,6 @@ const Navbar = () => {
         ))}
       </div>
 
-<h1>hi garima</h1>
     </div>
   );
 };
