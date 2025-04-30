@@ -18,6 +18,7 @@ const registerCrime = async (req, res) => {
       crimecategory,
       crimedesc,
       crimelocation,
+      status,
     } = req.body;
 
     if (!userid || !crimelocation || !crimecategory) {
@@ -46,6 +47,7 @@ const registerCrime = async (req, res) => {
       crimecategory,
       crimedesc,
       crimelocation,
+      status,
       images: ImagesURL,
     });
 

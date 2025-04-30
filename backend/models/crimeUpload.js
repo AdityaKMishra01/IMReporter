@@ -21,6 +21,10 @@ const crimeUpload = new mongoose.Schema({
       type:String,
       required:true  
     },
+    status:{
+        type:String,
+        default:'pending'
+    },
     images:[{
         type:String
     }]
