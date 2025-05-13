@@ -1,3 +1,4 @@
+require('../models/user')
 const crime = require("../models/crimeUpload");
 const multer = require('multer');
 const cloudinary = require("../config/cloudnary");
@@ -59,5 +60,16 @@ const registerCrime = async (req, res) => {
   }
 };
 
+const getAllCrimes = async (req, res) => {
+  try {
+    const crimes = await crime.find().populate('userid', 'firstname'); // optional: populate user details
+    res.status(200).json(crimes);
+  } catch (error) {
+    console.error("Error fetching crimes:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
 
-module.exports = {registerCrime,upload}
+
+
+module.exports = {registerCrime,getAllCrimes,upload}
