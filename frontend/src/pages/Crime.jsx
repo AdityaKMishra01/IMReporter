@@ -1,17 +1,10 @@
 import React from 'react'
+import Crimecard from "../components/Crimecard"
 
 const Crime = () => {
   return (
     <>
-     <div className="container">
-        <div className="card">
-            <div className="imgdiv"></div>
-            <div className="detDiv">
-                <p className="crimeTitle">Murder</p>
-                <p className="crimeCate">Murder</p>
-            </div>
-        </div>
-     </div>
+       <Crimecard />
     </>
   )
 }

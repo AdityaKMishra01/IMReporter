@@ -1,0 +1,432 @@
+:root {
+    --primary-color: #9a1414;
+    --secondary-color: #002147;
+    --accent-color: #e63946;
+    --light-bg: #f4f4f4;
+    --card-bg: #ffffff;
+    --text-dark: #333;
+    --text-light: #555;
+    --header-height: 50px;
+    --nav-height: 60px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--light-bg);
+    color: var(--text-dark);
+    line-height: 1.6;
+    padding-top: calc(var(--header-height) + var(--nav-height));
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    background-color: var(--primary-color);
+    color: white;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    height: var(--header-height);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+} 
+.clock {
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.app-name {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 15px 20px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    z-index: 999;
+    height: var(--nav-height);
+}
+.satyamev-logo {
+    height: 40px;
+}
+.app-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+}
+.national-portal {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.national-portal-english {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--secondary-color);
+}
+.national-portal-hindi {
+    font-size: 1rem;
+    color: var(--text-dark);
+}
+.nav-container {
+    display: flex;
+    background-color: var(--primary-color);
+    padding: 0 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: fixed;
+    top: calc(var(--header-height) + var(--nav-height));
+    left: 0;
+    width: 100%;
+    z-index: 998;
+    height: 50px;
+    white-space: nowrap;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 10px 0;
+    transition: all 0.3s;
+}
+
+.nav-link:hover {
+    transform: translateY(-2px);
+}
+
+.nav-link img {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 2px;
+}
+
+/* Main Content */
+main {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Slider */
+.slider {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.slides {
+    display: flex;
+    width: 300%;
+    height: 100%;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slides img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 12px 15px;
+    cursor: pointer;
+    font-size: 18px;
+    z-index: 10;
+    border-radius: 50%;
+    transition: all 0.3s;
+}
+
+.slider-btn:hover {
+    background-color: rgba(0,0,0,0.8);
+}
+
+.prev {
+    left: 20px;
+}
+
+.next {
+    right: 20px;
+}
+
+/* Knowledge Hub */
+.knowledge-hub {
+    padding: 40px 20px;
+    background-color: var(--card-bg);
+    margin: 30px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.section-icon {
+    width: 60px;
+    height: 60px;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    color: var(--secondary-color);
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.info-card {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-left: 4px solid var(--primary-color);
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    transition: all 0.3s;
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.card-title {
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.card-text {
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+/* Quick Report */
+.quick-report {
+    background: var(--card-bg);
+    padding: 30px;
+    margin: 30px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.section-title-center {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+}
+
+.report-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    margin: 0 auto;
+    gap: 15px;
+}
+
+.form-input {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+}
+
+.form-textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+.submit-btn {
+    background: var(--primary-color);
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.submit-btn:hover {
+    background: #7a1010;
+    transform: translateY(-2px);
+}
+
+/* FAQ Section */
+.faq-section {
+    background: #f9f9f9;
+    padding: 40px 20px;
+    margin: 30px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    margin-bottom: 20px;
+    background: white;
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.faq-question {
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.faq-answer {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+/* Footer */
+footer {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 30px 20px;
+    text-align: center;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.footer-link {
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.footer-link:hover {
+    color: #ccc;
+}
+
+.copyright {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .app-name {
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+        gap: 10px;
+    }
+    
+    .satyamev-logo {
+        height: 35px;
+    }
+    
+    .app-title {
+        font-size: 1.2rem;
+    }
+    
+    .national-portal {
+        align-items: center;
+    }
+    
+    .national-portal-english {
+        font-size: 1rem;
+    }
+    
+    .national-portal-hindi {
+        font-size: 0.9rem;
+    }
+    
+    .slider {
+        height: 300px;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+    
+    .section-icon {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-links {
+        gap: 15px;
+    }
+    
+    .nav-link {
+        font-size: 0.8rem;
+    }
+    
+    .nav-link img {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .slider {
+        height: 250px;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .section-title {
+        font-size: 1.3rem;
+    }
+}
