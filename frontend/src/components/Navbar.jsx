@@ -54,7 +54,6 @@ const Navbar = () => {
           </a>
         ))}
       </div>
-<h1>hi aryan</h1>
     </div>
   );
 };
