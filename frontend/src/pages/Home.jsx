@@ -39,14 +39,14 @@ const HomePage = () => {
             <i className="fas fa-folder-open" />
             <span>Cases</span>
           </NavLink>
-          <a href="Track.html" className="nav-link">
+          <NavLink to="#" className="nav-link">
             <i className="fas fa-search" />
             <span>Track</span>
-          </a>
-          <a href="Registercomplain.html" className="nav-link">
+          </NavLink>
+          <NavLink to="/register" className="nav-link">
             <i className="fas fa-edit" />
             <span>Register</span>
-          </a>
+          </NavLink>
           <a href="Govt-support.html" className="nav-link">
             <i className="fas fa-handshake" />
             <span>Govt Support</span>
