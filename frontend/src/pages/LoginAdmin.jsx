@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-const Login = () => {
+
+const LoginAdmin = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePassword = () => {
@@ -9,22 +10,9 @@ const Login = () => {
 
   return (
     <>
-      {/* Head elements like meta & title should go in index.html or use react-helmet */}
       <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-      />
-
-      <div
-        id="timeDisplay"
-        style={{
-          position: "absolute",
-          top: 10,
-          right: 20,
-          color: "rgb(27,27,27)",
-          fontSize: 16,
-          fontWeight: "bold",
-        }}
       />
 
       <div
@@ -35,17 +23,17 @@ const Login = () => {
           boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
           textAlign: "center",
           width: 350,
-          margin: "80px auto", // for centering
+          margin: "80px auto",
         }}
       >
         <h2 style={{ color: "#1E3C72", marginBottom: 20, fontSize: 22 }}>
-          Login Page
+          Admin Login
         </h2>
 
-        {/* Mobile Number Input */}
+        {/* Admin ID input (could also be email or username) */}
         <div style={{ position: "relative", marginBottom: 15 }}>
           <i
-            className="fas fa-mobile-alt"
+            className="fas fa-user-shield"
             style={{
               position: "absolute",
               top: "50%",
@@ -56,8 +44,8 @@ const Login = () => {
           />
           <input
             type="text"
-            id="mobile"
-            placeholder="Enter Mobile Number"
+            id="adminId"
+            placeholder="Enter Admin ID"
             style={{
               width: "80%",
               padding: 12,
@@ -70,7 +58,7 @@ const Login = () => {
           />
         </div>
 
-        {/* Password Input */}
+        {/* Password input */}
         <div style={{ position: "relative", marginBottom: 15 }}>
           <i
             className="fas fa-lock"
@@ -84,7 +72,7 @@ const Login = () => {
           />
           <input
             type={showPassword ? "text" : "password"}
-            id="password"
+            id="adminPassword"
             placeholder="Enter Password"
             style={{
               width: "80%",
@@ -97,8 +85,7 @@ const Login = () => {
             }}
           />
           <i
-            className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"} toggle-password`}
-            id="toggleIcon"
+            className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"}`}
             onClick={togglePassword}
             style={{
               position: "absolute",
@@ -111,7 +98,7 @@ const Login = () => {
           />
         </div>
 
-        {/* Buttons */}
+        {/* Login button */}
         <div
           style={{
             display: "flex",
@@ -123,7 +110,7 @@ const Login = () => {
           <button
             style={{
               padding: 12,
-              backgroundColor: "#1E3C72",
+              backgroundColor: "#E63946",
               color: "white",
               border: "none",
               borderRadius: 5,
@@ -132,13 +119,13 @@ const Login = () => {
               transition: "0.3s",
             }}
           >
-            Login as User
+            Login as Admin
           </button>
         </div>
 
-        {/* Sign Up Link */}
+        {/* Navigation to User Login */}
         <NavLink
-          to="/usersignup"
+          to="/login"
           style={{
             marginTop: 15,
             display: "block",
@@ -148,11 +135,11 @@ const Login = () => {
             transition: "0.3s",
           }}
         >
-          New User? Sign Up
+          Are you a User? Login here
         </NavLink>
       </div>
     </>
   );
 };
 
-export default Login;
+export default LoginAdmin;

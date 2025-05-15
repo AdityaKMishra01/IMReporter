@@ -1,67 +1,21 @@
 import React from 'react';
 import './Home.css'; // Correct CSS import
 import { NavLink } from 'react-router-dom'
+import Navbar from '../components/Navbar';
+import Navthird from '../components/Navthird';
 
 const HomePage = () => {
   return (
     <>
       {/* Top Header */}
-      <header className="header">
-        <div>Government of India</div>
-        <div className="clock">
-          <i className="fas fa-clock" />
-          <span id="clock">00:00:00 AM</span>
-        </div>
-      </header>
+      <Navbar />
 
       {/* App Title Section */}
-      <div className="app-name">
-        <img
-          src="Satyamevjayate.png"
-          alt="Satyamev Jayate Logo"
-          className="satyamev-logo"
-        />
-        <div className="app-title">IMReporter</div>
-        <div className="national-portal">
-          <div className="national-portal-english">National Crime Reporting Portal</div>
-          <div className="national-portal-hindi">राष्ट्रीय अपराध रिपोर्टिंग पोर्टल</div>
-        </div>
-      </div>
+     
 
       {/* Navigation */}
-      <nav className="nav-container">
-        <div className="nav-links">
-          <a href="Home.html" className="nav-link">
-            <img src="Home.png" alt="Home Icon" />
-            <span>Home</span>
-          </a>
-          <NavLink to='/all/crime' className="nav-link">
-            <i className="fas fa-folder-open" />
-            <span>Cases</span>
-          </NavLink>
-          <NavLink to="#" className="nav-link">
-            <i className="fas fa-search" />
-            <span>Track</span>
-          </NavLink>
-          <NavLink to="/register" className="nav-link">
-            <i className="fas fa-edit" />
-            <span>Register</span>
-          </NavLink>
-          <a href="Govt-support.html" className="nav-link">
-            <i className="fas fa-handshake" />
-            <span>Govt Support</span>
-          </a>
-          <a href="Contact.html" className="nav-link">
-            <i className="fas fa-phone-alt" />
-            <span>Contact</span>
-          </a>
-          <a href="#faq-section" className="nav-link">
-            <i className="fas fa-question-circle" />
-            <span>FAQ</span>
-          </a>
-        </div>
-      </nav>
-
+      <Navthird />
+      
       {/* Main Content */}
       <main>
         {/* Image Slider */}

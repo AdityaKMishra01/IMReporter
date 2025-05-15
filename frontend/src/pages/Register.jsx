@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import Navbar from "../components/Navbar"
+import Navthird from '../components/Navthird';
 import axios from 'axios';
 
 const Register = () => {
@@ -12,14 +14,14 @@ const Register = () => {
 
   const [userId, setUserId] = useState('');
   const [showUserIdInput, setShowUserIdInput] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // ✅ New state
 
-  // Try to get userid from localStorage
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('user'));
     if (storedUser && storedUser._id) {
       setUserId(storedUser._id);
     } else {
-      setShowUserIdInput(true); // Ask user to input manually
+      setShowUserIdInput(true);
     }
   }, []);
 
@@ -73,6 +75,7 @@ const Register = () => {
     }
 
     try {
+      setIsLoading(true); // ✅ Start loading
       await axios.post('http://localhost:8000/api/crimes/registercrime', data);
       alert('Crime reported successfully!');
       setFormData({
@@ -85,10 +88,15 @@ const Register = () => {
     } catch (err) {
       console.error(err);
       alert('Failed to submit the report');
+    } finally {
+      setIsLoading(false); // 
     }
   };
 
   return (
+    <>
+    <Navbar />
+    <Navthird />
     <div
       style={{
         maxWidth: 600,
@@ -97,12 +105,12 @@ const Register = () => {
         padding: 25,
         borderRadius: 10,
         boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+        marginTop: '40px'
       }}
     >
       <h2 style={{ textAlign: 'center', color: '#9a1414' }}>Crime Reporting Form</h2>
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 15 }}>
 
-        {/* Manual userId input if not available */}
         {showUserIdInput && (
           <input
             type="text"
@@ -175,22 +183,25 @@ const Register = () => {
           style={{ padding: 5 }}
         />
 
+        {/* ✅ Submit button with loading animation */}
         <button
           type="submit"
+          disabled={isLoading}
           style={{
-            backgroundColor: '#9a1414',
+            backgroundColor: isLoading ? '#ccc' : '#9a1414',
             color: 'white',
             padding: 12,
             fontWeight: 'bold',
             border: 'none',
             borderRadius: 5,
-            cursor: 'pointer',
+            cursor: isLoading ? 'not-allowed' : 'pointer',
           }}
         >
-          Submit Report
+          {isLoading ? 'Submitting...' : 'Submit Report'}
         </button>
       </form>
     </div>
+    </>
   );
 };
 

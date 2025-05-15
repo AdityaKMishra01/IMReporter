@@ -1,8 +1,11 @@
-require('../models/user')
+const User = require('../models/user')
 const crime = require("../models/crimeUpload");
+const nodemailer = require('nodemailer');
 const multer = require('multer');
 const cloudinary = require("../config/cloudnary");
 const path = require("path");
+const dotenv = require('dotenv')
+dotenv.config()
 
 const storage = multer.diskStorage({
   filename: function (req, file, cb) {
@@ -53,6 +56,35 @@ const registerCrime = async (req, res) => {
     });
 
     await newCrime.save()
+
+    const user = await User.findById(userid);
+    if (!user || !user.email) {
+      return res.status(400).json({ message: 'User email not found' });
+    }
+    
+    const transporter = nodemailer.createTransport({
+      service: 'Gmail', // or use smtp.ethereal.email for testing
+      auth: {
+        user: process.env.Email,
+        pass: process.env.Password,
+      },
+    });
+
+    const mailOptions = {
+      from: '"Crime Portal" <your_email@gmail.com>',
+      to: user.email,
+      subject: 'Crime Report Registered',
+      html: `
+        <h3>Dear ${user.firstname || 'User'},</h3>
+        <p>Your crime report has been successfully registered.</p>
+        <p><strong>Case ID:</strong> ${newCrime._id}</p>
+        <p><strong>Title:</strong> ${crimetitle}</p>
+        <p>We will look into it and keep you updated.</p>
+        <p>Regards,<br />Crime Reporting Team</p>
+      `,
+    };
+
+    await transporter.sendMail(mailOptions);
 
     res.status(200).json({status:"Sucessfully Uploaded"})
   } catch (error) {
