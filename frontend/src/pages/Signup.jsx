@@ -1,289 +1,106 @@
-import React from "react";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
+  const navigate = useNavigate();
+  const [password, setPassword] = useState("");
+  const [confirmpassword, setConfirmpassword] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+
+    if (password !== confirmpassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    const formData = {
+      firstname: form.firstname.value,
+      lastname: form.lastname.value,
+      email: form.email.value,
+      phoneno: form.phoneno.value,
+      password,
+      usertype: form.usertype.value,
+      govidname: form.govidname.value,
+      govidno: form.govidno.value,
+      state: form.state.value,
+      city: form.city.value,
+      address: form.address.value
+    };
+
+    try {
+      const res = await axios.post("http://localhost:8000/api/auth/register", formData);
+      alert(res.data.message);
+      navigate("/login");
+    } catch (err) {
+      alert(err.response?.data?.message || "Something went wrong");
+    }
+  };
+
+  const formStyle = {
+    maxWidth: "500px",
+    margin: "30px auto",
+    padding: "20px",
+    display: "flex",
+    flexDirection: "column",
+    gap: "12px",
+    background: "#f9f9f9",
+    border: "1px solid #ddd",
+    borderRadius: "10px",
+    boxShadow: "0 0 10px rgba(0,0,0,0.1)"
+  };
+
+  const inputStyle = {
+    padding: "10px",
+    fontSize: "16px",
+    border: "1px solid #ccc",
+    borderRadius: "5px",
+    outline: "none"
+  };
+
+  const buttonStyle = {
+    padding: "12px",
+    backgroundColor: "#007BFF",
+    color: "#fff",
+    fontSize: "16px",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer"
+  };
+
   return (
-    <>
-      <meta charSet="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <title>Crime Report - Signup</title>
-      <div
-        style={{
-          backgroundColor: "#fff",
-          padding: 30,
-          borderRadius: 12,
-          boxShadow: "0 0 20px rgba(0,0,0,0.1)",
-          width: "100%",
-          maxWidth: 500,
-        }}
-      >
-        <h2 style={{ textAlign: "center", marginBottom: 20, color: "#1E3C72" }}>
-          Create Account
-        </h2>
-        <form id="signupForm" onsubmit="return validateForm()">
-          <label
-            htmlFor="firstname"
-            style={{ fontWeight: "bold", marginTop: 10, display: "block" }}
-          >
-            First Name
-          </label>
-          <input
-            type="text"
-            id="firstname"
-            name="firstname"
-            required=""
-            style={{
-              width: "100%",
-              padding: 10,
-              marginTop: 5,
-              marginBottom: 15,
-              border: "1px solid #ccc",
-              borderRadius: 8,
-            }}
-          />
-          <label
-            htmlFor="lastname"
-            style={{ fontWeight: "bold", marginTop: 10, display: "block" }}
-          >
-            Last Name
-          </label>
-          <input
-            type="text"
-            id="lastname"
-            name="lastname"
-            required=""
-            style={{
-              width: "100%",
-              padding: 10,
-              marginTop: 5,
-              marginBottom: 15,
-              border: "1px solid #ccc",
-              borderRadius: 8,
-            }}
-          />
-          <label
-            htmlFor="email"
-            style={{ fontWeight: "bold", marginTop: 10, display: "block" }}
-          >
-            Email Address
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            required=""
-            style={{
-              width: "100%",
-              padding: 10,
-              marginTop: 5,
-              marginBottom: 15,
-              border: "1px solid #ccc",
-              borderRadius: 8,
-            }}
-          />
-          <label
-            htmlFor="phoneno"
-            style={{ fontWeight: "bold", marginTop: 10, display: "block" }}
-          >
-            Phone Number
-          </label>
-          <input
-            type="tel"
-            id="phoneno"
-            name="phoneno"
-            pattern="[0-9]{10}"
-            placeholder="10-digit phone number"
-            required=""
-            style={{
-              width: "100%",
-              padding: 10,
-              marginTop: 5,
-              marginBottom: 15,
-              border: "1px solid #ccc",
-              borderRadius: 8,
-            }}
-          />
-          <label
-            htmlFor="password"
-            style={{ fontWeight: "bold", marginTop: 10, display: "block" }}
-          >
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            required=""
-            style={{
-              width: "100%",
-              padding: 10,
-              marginTop: 5,
-              marginBottom: 15,
-              border: "1px solid #ccc",
-              borderRadius: 8,
-            }}
-          />
-          <label
-            htmlFor="confirmpassword"
-            style={{ fontWeight: "bold", marginTop: 10, display: "block" }}
-          >
-            Confirm Password
-          </label>
-          <input
-            type="password"
-            id="confirmpassword"
-            required=""
-            style={{
-              width: "100%",
-              padding: 10,
-              marginTop: 5,
-              marginBottom: 15,
-              border: "1px solid #ccc",
-              borderRadius: 8,
-            }}
-          />
-          <label
-            htmlFor="usertype"
-            style={{ fontWeight: "bold", marginTop: 10, display: "block" }}
-          >
-            User Type
-          </label>
-          <select
-            id="usertype"
-            name="usertype"
-            required=""
-            style={{
-              width: "100%",
-              padding: 10,
-              marginTop: 5,
-              marginBottom: 15,
-              border: "1px solid #ccc",
-              borderRadius: 8,
-            }}
-          >
-            <option value="">Select Type</option>
-            <option value="Citizen">Citizen</option>
-            <option value="Police">Police</option>
-            <option value="Authority">Authority</option>
-          </select>
-          <label
-            htmlFor="govidname"
-            style={{ fontWeight: "bold", marginTop: 10, display: "block" }}
-          >
-            Government ID Name
-          </label>
-          <input
-            type="text"
-            id="govidname"
-            name="govidname"
-            placeholder="e.g., Aadhar Card, Passport"
-            required=""
-            style={{
-              width: "100%",
-              padding: 10,
-              marginTop: 5,
-              marginBottom: 15,
-              border: "1px solid #ccc",
-              borderRadius: 8,
-            }}
-          />
-          <label
-            htmlFor="govidno"
-            style={{ fontWeight: "bold", marginTop: 10, display: "block" }}
-          >
-            Government ID Number
-          </label>
-          <input
-            type="text"
-            id="govidno"
-            name="govidno"
-            required=""
-            style={{
-              width: "100%",
-              padding: 10,
-              marginTop: 5,
-              marginBottom: 15,
-              border: "1px solid #ccc",
-              borderRadius: 8,
-            }}
-          />
-          <label
-            htmlFor="state"
-            style={{ fontWeight: "bold", marginTop: 10, display: "block" }}
-          >
-            State
-          </label>
-          <input
-            type="text"
-            id="state"
-            name="state"
-            required=""
-            style={{
-              width: "100%",
-              padding: 10,
-              marginTop: 5,
-              marginBottom: 15,
-              border: "1px solid #ccc",
-              borderRadius: 8,
-            }}
-          />
-          <label
-            htmlFor="city"
-            style={{ fontWeight: "bold", marginTop: 10, display: "block" }}
-          >
-            City
-          </label>
-          <input
-            type="text"
-            id="city"
-            name="city"
-            required=""
-            style={{
-              width: "100%",
-              padding: 10,
-              marginTop: 5,
-              marginBottom: 15,
-              border: "1px solid #ccc",
-              borderRadius: 8,
-            }}
-          />
-          <label
-            htmlFor="address"
-            style={{ fontWeight: "bold", marginTop: 10, display: "block" }}
-          >
-            Address
-          </label>
-          <input
-            type="text"
-            id="address"
-            name="address"
-            required=""
-            style={{
-              width: "100%",
-              padding: 10,
-              marginTop: 5,
-              marginBottom: 20,
-              border: "1px solid #ccc",
-              borderRadius: 8,
-            }}
-          />
-          <button
-            type="submit"
-            style={{
-              width: "100%",
-              backgroundColor: "#1E3C72",
-              color: "white",
-              padding: 12,
-              border: "none",
-              borderRadius: 8,
-              fontSize: 16,
-              cursor: "pointer",
-            }}
-          >
-            Sign Up
-          </button>
-        </form>
-      </div>
-    </>
+    <form onSubmit={handleSubmit} style={formStyle}>
+      <h2 style={{ textAlign: "center" }}>Signup</h2>
+      <input name="firstname" placeholder="First Name" required style={inputStyle} />
+      <input name="lastname" placeholder="Last Name" required style={inputStyle} />
+      <input name="email" placeholder="Email" type="email" required style={inputStyle} />
+      <input name="phoneno" placeholder="Phone Number" type="number" required style={inputStyle} />
+      <input name="usertype" placeholder="User Type" required style={inputStyle} />
+      <input name="govidname" placeholder="Govt ID Name" required style={inputStyle} />
+      <input name="govidno" placeholder="Govt ID Number" required style={inputStyle} />
+      <input name="state" placeholder="State" required style={inputStyle} />
+      <input name="city" placeholder="City" required style={inputStyle} />
+      <input name="address" placeholder="Address" required style={inputStyle} />
+      <input
+        placeholder="Password"
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        required
+        style={inputStyle}
+      />
+      <input
+        placeholder="Confirm Password"
+        type="password"
+        value={confirmpassword}
+        onChange={(e) => setConfirmpassword(e.target.value)}
+        required
+        style={inputStyle}
+      />
+      <button type="submit" style={buttonStyle}>Register</button>
+    </form>
   );
 };
 

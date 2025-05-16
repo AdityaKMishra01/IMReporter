@@ -1,31 +1,67 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import axios from "axios";
+
 const Login = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [phoneno, setphoneno] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [firstname, setFirstname] = useState("");
+
+  // Load firstname from localStorage on component mount
+  useEffect(() => {
+    const storedName = localStorage.getItem("firstname");
+    if (storedName) {
+      setFirstname(storedName);
+    }
+  }, []);
 
   const togglePassword = () => {
     setShowPassword((prev) => !prev);
   };
 
+  const handleLogin = async () => {
+  try {
+    const response = await axios.post("http://localhost:8000/api/auth/login", {
+      phoneno,
+      password,
+    });
+
+    console.log("Response:", response.data); // Debug
+
+    const { userid, role, firstname } = response.data;
+
+    localStorage.setItem("userid", userid); // store the actual _id
+    localStorage.setItem("role", role);
+    localStorage.setItem("firstname", firstname);
+
+    setFirstname(firstname);
+
+    if (role === "admin") {
+      navigate("/all/crimes");
+    } else {
+      navigate("/register");
+    }
+  } catch (err) {
+    setError("Invalid credentials. Please try again.");
+  }
+};
+
+
   return (
     <>
-      {/* Head elements like meta & title should go in index.html or use react-helmet */}
+      {/* FontAwesome */}
       <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       />
 
-      <div
-        id="timeDisplay"
-        style={{
-          position: "absolute",
-          top: 10,
-          right: 20,
-          color: "rgb(27,27,27)",
-          fontSize: 16,
-          fontWeight: "bold",
-        }}
-      />
+      {/* Error Message */}
+      {error && (
+        <p style={{ color: "red", textAlign: "center", marginTop: 20 }}>{error}</p>
+      )}
 
       <div
         style={{
@@ -35,17 +71,17 @@ const Login = () => {
           boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
           textAlign: "center",
           width: 350,
-          margin: "80px auto", // for centering
+          margin: "80px auto",
         }}
       >
         <h2 style={{ color: "#1E3C72", marginBottom: 20, fontSize: 22 }}>
           Login Page
         </h2>
 
-        {/* Mobile Number Input */}
+        {/* phoneno Input */}
         <div style={{ position: "relative", marginBottom: 15 }}>
           <i
-            className="fas fa-mobile-alt"
+            className="fas fa-phone-alt"
             style={{
               position: "absolute",
               top: "50%",
@@ -56,8 +92,9 @@ const Login = () => {
           />
           <input
             type="text"
-            id="mobile"
-            placeholder="Enter Mobile Number"
+            placeholder="Enter Phone Number"
+            value={phoneno}
+            onChange={(e) => setphoneno(e.target.value)}
             style={{
               width: "80%",
               padding: 12,
@@ -84,8 +121,9 @@ const Login = () => {
           />
           <input
             type={showPassword ? "text" : "password"}
-            id="password"
             placeholder="Enter Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             style={{
               width: "80%",
               padding: 12,
@@ -97,8 +135,7 @@ const Login = () => {
             }}
           />
           <i
-            className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"} toggle-password`}
-            id="toggleIcon"
+            className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"}`}
             onClick={togglePassword}
             style={{
               position: "absolute",
@@ -111,16 +148,10 @@ const Login = () => {
           />
         </div>
 
-        {/* Buttons */}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 10,
-            marginTop: 10,
-          }}
-        >
+        {/* Login Button or Name */}
+        {!firstname ? (
           <button
+            onClick={handleLogin}
             style={{
               padding: 12,
               backgroundColor: "#1E3C72",
@@ -129,27 +160,39 @@ const Login = () => {
               borderRadius: 5,
               fontSize: 16,
               cursor: "pointer",
-              transition: "0.3s",
+              width: "100%",
             }}
           >
             Login as User
           </button>
-        </div>
+        ) : (
+          <div
+            style={{
+              fontSize: 18,
+              color: "#1E3C72",
+              fontWeight: "bold",
+              marginTop: 10,
+            }}
+          >
+            Welcome, {firstname}
+          </div>
+        )}
 
         {/* Sign Up Link */}
-        <NavLink
-          to="/usersignup"
-          style={{
-            marginTop: 15,
-            display: "block",
-            color: "#1E3C72",
-            fontSize: 14,
-            textDecoration: "none",
-            transition: "0.3s",
-          }}
-        >
-          New User? Sign Up
-        </NavLink>
+        {!firstname && (
+          <NavLink
+            to="/usersignup"
+            style={{
+              marginTop: 15,
+              display: "block",
+              color: "#1E3C72",
+              fontSize: 14,
+              textDecoration: "none",
+            }}
+          >
+            New User? Sign Up
+          </NavLink>
+        )}
       </div>
     </>
   );
