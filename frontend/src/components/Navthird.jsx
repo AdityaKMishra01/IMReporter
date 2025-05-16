@@ -55,7 +55,7 @@ const Navthird = () => {
             <i className="fas fa-folder-open" />
             <span>Cases</span>
           </NavLink>
-          <NavLink to="#" style={navLinkStyle}>
+          <NavLink to="/trackreports" style={navLinkStyle}>
             <i className="fas fa-search" />
             <span>Track</span>
           </NavLink>

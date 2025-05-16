@@ -7,6 +7,8 @@ import Login from './pages/Login'
 import LoginAdmin from './pages/LoginAdmin'
 import Signup from './pages/Signup'
 import News from './pages/News'
+import TrackReports from './pages/TrackReports'
+
 function App() {
   const [count, setCount] = useState(0)
 
@@ -20,6 +22,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/usersignup" element={<Signup />} />
         <Route path="/news" element={<News />} />
+        <Route path="/trackreports" element={<TrackReports />} />
         <Route path="/adminlogin" element={<LoginAdmin />} />
 
        </Routes>
