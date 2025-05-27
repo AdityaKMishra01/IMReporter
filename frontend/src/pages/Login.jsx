@@ -40,7 +40,7 @@ const Login = () => {
     setFirstname(firstname);
 
     if (role === "admin") {
-      navigate("/all/crimes");
+      navigate("/");
     } else {
       navigate("/register");
     }

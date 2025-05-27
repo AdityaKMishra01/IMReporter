@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import Navbar from "../components/Navbar";
+import Navthird from '../components/Navthird';
 import axios from 'axios';
 
 const AdminCrimes = () => {
@@ -65,6 +67,9 @@ const AdminCrimes = () => {
   };
 
   return (
+    <>
+    <Navbar />
+      <Navthird />
     <div style={{ padding: '2rem', fontFamily: 'Arial, sans-serif' }}>
       <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>Admin - Manage Crimes</h2>
 
@@ -162,6 +167,7 @@ const AdminCrimes = () => {
         </tbody>
       </table>
     </div>
+    </>
   );
 };
 

@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 
 const Navthird = () => {
   const [firstname, setFirstname] = useState('');
+  const role = localStorage.getItem('role')
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -109,6 +110,19 @@ const Navthird = () => {
             <i className="fas fa-question-circle" />
             <span>Quick</span>
           </NavLink>
+          {role === "admin" && (
+            <>
+             <NavLink to="/all/crimes" style={navLinkStyle}>
+            <i className="fas fa-question-circle" />
+            <span>All Crimes</span>
+          </NavLink>
+          <NavLink to="/all/users" style={navLinkStyle}>
+            <i className="fas fa-question-circle" />
+            <span>All Users</span>
+          </NavLink>
+            </>
+          )}
+          
         </div>
 
         <div className="logs" style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>

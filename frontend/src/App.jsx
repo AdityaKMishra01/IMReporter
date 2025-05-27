@@ -20,7 +20,7 @@ function App() {
 
         {/* User protected routes */}
         <Route path="/all/crime" element={
-          <PrivateRoute allowedRoles={['user']}>
+          <PrivateRoute allowedRoles={['user','admin']}>
             <Crime />
           </PrivateRoute>
         } />
@@ -28,12 +28,12 @@ function App() {
         <Route path="/usersignup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/news" element={
-          <PrivateRoute allowedRoles={['user']}>
+          <PrivateRoute allowedRoles={['user','admin']}>
             <News />
           </PrivateRoute>
         } />
         <Route path="/trackreports" element={
-          <PrivateRoute allowedRoles={['user']}>
+          <PrivateRoute allowedRoles={['user','admin']}>
             <TrackReports />
           </PrivateRoute>
         } />

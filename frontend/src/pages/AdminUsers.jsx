@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import Navbar from "../components/Navbar";
+import Navthird from '../components/Navthird';
 import axios from 'axios';
 
 const AdminUsers = () => {
@@ -124,6 +126,9 @@ const AdminUsers = () => {
   };
 
   return (
+    <>
+    <Navbar />
+      <Navthird />
     <div style={styles.container}>
       <h2 style={styles.heading}>Admin Panel - Manage Users</h2>
       <table style={styles.table}>
@@ -191,6 +196,7 @@ const AdminUsers = () => {
         </tbody>
       </table>
     </div>
+    </>
   );
 };
 
