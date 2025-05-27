@@ -68,7 +68,7 @@ const Crimecard = () => {
                 }}
               />
               <div>
-                <strong style={{ fontSize: 16 }}>{crime.userid?.firstname}</strong>
+                <strong style={{ fontSize: 16 }}>{crime.userid.firstname}</strong>
               </div>
             </div>
           </div>

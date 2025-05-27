@@ -99,7 +99,10 @@ const registerCrime = async (req, res) => {
 // Get all crimes
 const getAllCrimes = async (req, res) => {
   try {
-    const crimes = await crime.find().populate('userid', 'firstname');
+    const crimes = await crime.find()
+      .sort({ createdAt: -1 })
+      .populate('userid', 'firstname');
+      console.log(crimes)
     res.status(200).json(crimes);
   } catch (error) {
     console.error("Error fetching crimes:", error);

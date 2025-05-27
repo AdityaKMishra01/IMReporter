@@ -100,6 +100,7 @@ const LoginAdmin = () => {
 
         {/* Login button */}
         <div
+        
           style={{
             display: "flex",
             flexDirection: "column",
@@ -108,6 +109,7 @@ const LoginAdmin = () => {
           }}
         >
           <button
+          
             style={{
               padding: 12,
               backgroundColor: "#E63946",

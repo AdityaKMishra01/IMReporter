@@ -4,16 +4,16 @@ import axios from "axios";
 const NewsCards = () => {
   const [articles, setArticles] = useState([]);
 
-  // useEffect(() => {
-  //   axios
-  //     .get("https://newsapi.org/v2/everything?q=crime+india&apiKey=759a00a3600b4583b5b227a65a214295")
-  //     .then((res) => {
-  //       setArticles(res.data.articles);
-  //     })
-  //     .catch((err) => {
-  //       console.error("Error fetching news:", err);
-  //     });
-  // }, []);
+  useEffect(() => {
+    axios
+      .get("https://newsapi.org/v2/everything?q=crime+india&apiKey=759a00a3600b4583b5b227a65a214295")
+      .then((res) => {
+        setArticles(res.data.articles);
+      })
+      .catch((err) => {
+        console.error("Error fetching news:", err);
+      });
+  }, []);
 
   return (
     <div style={{ padding: "20px", backgroundColor: "#f4f4f4" }}>

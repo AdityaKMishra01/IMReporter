@@ -82,7 +82,7 @@ const Navthird = () => {
       <nav style={navContainerStyle}>
         <div style={navLinksStyle}>
           <NavLink to="/" style={navLinkStyle}>
-            <img src="Home.png" alt="Home Icon" style={imgStyle} />
+            {/* <img src="Home.png" alt="Home Icon" style={imgStyle} /> */}
             <span>Home</span>
           </NavLink>
           <NavLink to="/all/crime" style={navLinkStyle}>
@@ -107,7 +107,7 @@ const Navthird = () => {
           </NavLink>
           <NavLink to="#faq-section" style={navLinkStyle}>
             <i className="fas fa-question-circle" />
-            <span>FAQ</span>
+            <span>Quick</span>
           </NavLink>
         </div>
 
@@ -126,11 +126,11 @@ const Navthird = () => {
             <>
               <NavLink to="/login" style={navLinkStyle}>
                 <i className="fas fa-sign-in-alt" />
-                <strong>Login User</strong>
+                <strong>Login</strong>
               </NavLink>
-              <NavLink to="/adminlogin" style={navLinkStyle}>
+              <NavLink to="/usersignup" style={navLinkStyle}>
                 <i className="fas fa-user-shield" />
-                <strong>Login Admin</strong>
+                <strong>Signup </strong>
               </NavLink>
             </>
           )}
