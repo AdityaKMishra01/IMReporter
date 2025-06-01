@@ -9,6 +9,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [firstname, setFirstname] = useState("");
+  const [isHovering, setIsHovering] = useState(false);
+  const [shake, setShake] = useState(false);
 
   // Load firstname from localStorage on component mount
   useEffect(() => {
@@ -23,178 +25,370 @@ const Login = () => {
   };
 
   const handleLogin = async () => {
-  try {
-    const response = await axios.post("http://localhost:8000/api/auth/login", {
-      phoneno,
-      password,
-    });
+    try {
+      const response = await axios.post("http://localhost:8000/api/auth/login", {
+        phoneno,
+        password,
+      });
 
-    console.log("Response:", response.data); // Debug
+      console.log("Response:", response.data);
 
-    const { userid, role, firstname } = response.data;
+      const { userid, role, firstname } = response.data;
 
-    localStorage.setItem("userid", userid); // store the actual _id
-    localStorage.setItem("role", role);
-    localStorage.setItem("firstname", firstname);
+      localStorage.setItem("userid", userid);
+      localStorage.setItem("role", role);
+      localStorage.setItem("firstname", firstname);
 
-    setFirstname(firstname);
+      setFirstname(firstname);
 
-    if (role === "admin") {
-      navigate("/");
-    } else {
-      navigate("/register");
+      if (role === "admin") {
+        navigate("/");
+      } else {
+        navigate("/register");
+      }
+    } catch (err) {
+      setError("Invalid credentials. Please try again.");
+      setShake(true);
+      setTimeout(() => setShake(false), 500);
     }
-  } catch (err) {
-    setError("Invalid credentials. Please try again.");
-  }
-};
-
+  };
 
   return (
-    <>
-      {/* FontAwesome */}
-      <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-      />
+    <div style={{
+      minHeight: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: '#ffffff',
+      position: 'relative',
+      overflow: 'hidden',
+      marginTop:'-100px'
+    }}>
+      {/* Decorative Elements */}
+      <div style={{
+        position: 'absolute',
+        top: '10%',
+        left: '5%',
+        fontSize: '50px',
+        transform: 'rotate(-15deg)',
+        opacity: 0.1,
+        animation: 'float 6s ease-in-out infinite',
+        color: '#d32f2f'
+      }}>🔒</div>
+      
+      <div style={{
+        position: 'absolute',
+        bottom: '15%',
+        right: '8%',
+        fontSize: '60px',
+        transform: 'rotate(15deg)',
+        opacity: 0.1,
+        animation: 'float 8s ease-in-out infinite 1s',
+        color: '#d32f2f'
+      }}>👮</div>
+      
+      <div style={{
+        position: 'absolute',
+        top: '30%',
+        right: '15%',
+        fontSize: '40px',
+        opacity: 0.1,
+        animation: 'float 7s ease-in-out infinite 0.5s',
+        color: '#d32f2f'
+      }}>🛡️</div>
 
-      {/* Error Message */}
-      {error && (
-        <p style={{ color: "red", textAlign: "center", marginTop: 20 }}>{error}</p>
-      )}
+      {/* Main Login Card */}
+      <div style={{
+        background: "white",
+        padding: "40px 30px",
+        borderRadius: "10px",
+        boxShadow: "0 5px 20px rgba(211, 47, 47, 0.1)",
+        textAlign: "center",
+        width: "380px",
+        zIndex: 1,
+        position: 'relative',
+        transform: shake ? 'translateX(0)' : 'translateX(0)',
+        animation: shake ? 'shake 0.5s' : 'none',
+        transition: 'all 0.3s ease',
+        borderTop: '4px solid #d32f2f'
+      }}>
+        {/* Header with Illustration */}
+        <div style={{
+          marginBottom: '25px',
+          position: 'relative'
+        }}>
+          <div style={{
+            width: '80px',
+            height: '80px',
+            background: 'linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%)',
+            borderRadius: '50%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: '0 auto 15px',
+            boxShadow: '0 5px 15px rgba(211, 47, 47, 0.3)'
+          }}>
+            <div style={{
+              fontSize: '35px',
+              color: 'white'
+            }}>👤</div>
+          </div>
+          <h2 style={{ 
+            color: "#d32f2f", 
+            marginBottom: "5px", 
+            fontSize: "24px",
+            fontWeight: '600'
+          }}>
+            Crime Reporting Portal
+          </h2>
+          <p style={{
+            color: '#666',
+            fontSize: '14px',
+            marginBottom: '20px'
+          }}>Sign in to access your account</p>
+        </div>
 
-      <div
-        style={{
-          background: "white",
-          padding: 30,
-          borderRadius: 10,
-          boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-          textAlign: "center",
-          width: 350,
-          margin: "80px auto",
-        }}
-      >
-        <h2 style={{ color: "#1E3C72", marginBottom: 20, fontSize: 22 }}>
-          Login Page
-        </h2>
+        {/* Error Message */}
+        {error && (
+          <div style={{ 
+            background: '#ffebee',
+            color: '#d32f2f',
+            padding: '10px',
+            borderRadius: '5px',
+            marginBottom: '20px',
+            fontSize: '14px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            border: '1px solid #ef9a9a'
+          }}>
+            <span style={{marginRight: '8px'}}>⚠️</span>
+            {error}
+          </div>
+        )}
 
-        {/* phoneno Input */}
-        <div style={{ position: "relative", marginBottom: 15 }}>
-          <i
-            className="fas fa-phone-alt"
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: 15,
-              transform: "translateY(-50%)",
-              color: "#999",
-            }}
-          />
-          <input
-            type="text"
-            placeholder="Enter Phone Number"
-            value={phoneno}
-            onChange={(e) => setphoneno(e.target.value)}
-            style={{
-              width: "80%",
-              padding: 12,
-              paddingLeft: 40,
-              paddingRight: 40,
-              border: "1px solid #ccc",
-              borderRadius: 5,
-              fontSize: 14,
-            }}
-          />
+        {/* Phone Number Input */}
+        <div style={{ 
+          position: "relative", 
+          marginBottom: "20px",
+          textAlign: 'left'
+        }}>
+          <label style={{
+            display: 'block',
+            marginBottom: '8px',
+            color: '#555',
+            fontSize: '14px',
+            fontWeight: '500'
+          }}>Phone Number</label>
+          <div style={{
+            position: 'relative'
+          }}>
+            <i
+              className="fas fa-phone-alt"
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: 15,
+                transform: "translateY(-50%)",
+                color: "#999",
+                zIndex: 1
+              }}
+            />
+            <input
+              type="text"
+              placeholder="Enter Phone Number"
+              value={phoneno}
+              onChange={(e) => setphoneno(e.target.value)}
+              style={{
+                width: "100%",
+                padding: "14px 14px 14px 40px",
+                border: "1px solid #ddd",
+                borderRadius: "8px",
+                fontSize: "14px",
+                transition: 'all 0.3s',
+                boxSizing: 'border-box'
+              }}
+              onFocus={(e) => e.target.style.borderColor = '#d32f2f'}
+              onBlur={(e) => e.target.style.borderColor = '#ddd'}
+            />
+          </div>
         </div>
 
         {/* Password Input */}
-        <div style={{ position: "relative", marginBottom: 15 }}>
-          <i
-            className="fas fa-lock"
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: 15,
-              transform: "translateY(-50%)",
-              color: "#999",
-            }}
-          />
-          <input
-            type={showPassword ? "text" : "password"}
-            placeholder="Enter Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            style={{
-              width: "80%",
-              padding: 12,
-              paddingLeft: 40,
-              paddingRight: 40,
-              border: "1px solid #ccc",
-              borderRadius: 5,
-              fontSize: 14,
-            }}
-          />
-          <i
-            className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"}`}
-            onClick={togglePassword}
-            style={{
-              position: "absolute",
-              top: "50%",
-              right: 15,
-              transform: "translateY(-50%)",
-              color: "#999",
-              cursor: "pointer",
-            }}
-          />
+        <div style={{ 
+          position: "relative", 
+          marginBottom: "25px",
+          textAlign: 'left'
+        }}>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: '8px'
+          }}>
+            <label style={{
+              color: '#555',
+              fontSize: '14px',
+              fontWeight: '500'
+            }}>Password</label>
+            <NavLink
+              to="/forgot-password"
+              style={{
+                color: "#d32f2f",
+                fontSize: "12px",
+                textDecoration: "none",
+                fontWeight: '500'
+              }}
+            >
+              Forgot password?
+            </NavLink>
+          </div>
+          <div style={{
+            position: 'relative'
+          }}>
+            <i
+              className="fas fa-lock"
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: 15,
+                transform: "translateY(-50%)",
+                color: "#999",
+                zIndex: 1
+              }}
+            />
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Enter Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              style={{
+                width: "100%",
+                padding: "14px 14px 14px 40px",
+                border: "1px solid #ddd",
+                borderRadius: "8px",
+                fontSize: "14px",
+                transition: 'all 0.3s',
+                boxSizing: 'border-box'
+              }}
+              onFocus={(e) => e.target.style.borderColor = '#d32f2f'}
+              onBlur={(e) => e.target.style.borderColor = '#ddd'}
+            />
+            <i
+              className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"}`}
+              onClick={togglePassword}
+              style={{
+                position: "absolute",
+                top: "50%",
+                right: 15,
+                transform: "translateY(-50%)",
+                color: "#999",
+                cursor: "pointer",
+                zIndex: 1
+              }}
+            />
+          </div>
         </div>
 
-        {/* Login Button or Name */}
+        {/* Login Button or Welcome Message */}
         {!firstname ? (
           <button
             onClick={handleLogin}
+            onMouseEnter={() => setIsHovering(true)}
+            onMouseLeave={() => setIsHovering(false)}
             style={{
-              padding: 12,
-              backgroundColor: "#1E3C72",
+              padding: "14px",
+              backgroundColor: isHovering ? "#b71c1c" : "#d32f2f",
               color: "white",
               border: "none",
-              borderRadius: 5,
-              fontSize: 16,
+              borderRadius: "8px",
+              fontSize: "16px",
               cursor: "pointer",
               width: "100%",
+              fontWeight: '600',
+              transition: 'all 0.3s ease',
+              boxShadow: isHovering ? '0 5px 15px rgba(211, 47, 47, 0.4)' : '0 3px 10px rgba(211, 47, 47, 0.2)',
+              transform: isHovering ? 'translateY(-2px)' : 'translateY(0)'
             }}
           >
-            Login as User
+            Login
           </button>
         ) : (
           <div
             style={{
-              fontSize: 18,
-              color: "#1E3C72",
+              fontSize: "18px",
+              color: "#d32f2f",
               fontWeight: "bold",
-              marginTop: 10,
+              margin: "20px 0",
+              padding: '15px',
+              background: '#ffebee',
+              borderRadius: '8px'
             }}
           >
-            Welcome, {firstname}
+            Welcome back, {firstname}!
           </div>
         )}
 
         {/* Sign Up Link */}
         {!firstname && (
-          <NavLink
-            to="/usersignup"
-            style={{
-              marginTop: 15,
-              display: "block",
-              color: "#1E3C72",
-              fontSize: 14,
-              textDecoration: "none",
-            }}
-          >
-            New User? Sign Up
-          </NavLink>
+          <div style={{
+            marginTop: "20px",
+            fontSize: "14px",
+            color: "#666"
+          }}>
+            Don't have an account?{" "}
+            <NavLink
+              to="/usersignup"
+              style={{
+                color: "#d32f2f",
+                textDecoration: "none",
+                fontWeight: '600'
+              }}
+            >
+              Register Now
+            </NavLink>
+          </div>
         )}
+
+        {/* Decorative Sticker */}
+        <div style={{
+          position: 'absolute',
+          bottom: '-20px',
+          right: '-20px',
+          background: '#d32f2f',
+          color: 'white',
+          width: '60px',
+          height: '60px',
+          borderRadius: '50%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '24px',
+          boxShadow: '0 5px 15px rgba(211, 47, 47, 0.3)',
+          transform: 'rotate(15deg)',
+          zIndex: -1
+        }}>🔐</div>
       </div>
-    </>
+
+      {/* Inline CSS for animations */}
+      <style>
+        {`
+          @keyframes float {
+            0% { transform: translateY(0px) rotate(-15deg); }
+            50% { transform: translateY(-20px) rotate(-15deg); }
+            100% { transform: translateY(0px) rotate(-15deg); }
+          }
+          
+          @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+          }
+        `}
+      </style>
+    </div>
   );
 };
 

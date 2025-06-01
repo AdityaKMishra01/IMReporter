@@ -102,14 +102,11 @@ const Navthird = () => {
             <i className="fas fa-handshake" />
             <span>News</span>
           </NavLink>
-          <NavLink to="Contact.html" style={navLinkStyle}>
+          <NavLink to="/emergency" style={navLinkStyle}>
             <i className="fas fa-phone-alt" />
             <span>Contact</span>
           </NavLink>
-          <NavLink to="#faq-section" style={navLinkStyle}>
-            <i className="fas fa-question-circle" />
-            <span>Quick</span>
-          </NavLink>
+          
           {role === "admin" && (
             <>
              <NavLink to="/all/crimes" style={navLinkStyle}>

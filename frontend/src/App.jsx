@@ -10,6 +10,7 @@ import AdminUsers from './pages/AdminUsers';
 import AdminCrimes from './pages/AdminCrimes';
 import TrackReports from './pages/TrackReports';
 import PrivateRoute from './components/PrivateRoute'; 
+import EmergencyContacts from "./pages/EmergencyContacts";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Routes>
         {/* Public route - no login required */}
         <Route path="/" element={<Home />} />
+        <Route path="/emergency" element={<EmergencyContacts />} />
 
         {/* User protected routes */}
         <Route path="/all/crime" element={

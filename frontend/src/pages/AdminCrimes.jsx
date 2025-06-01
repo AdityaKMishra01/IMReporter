@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from "../components/Navbar";
 import Navthird from '../components/Navthird';
+import CrimeMap from '../components/CrimeMap';
 import axios from 'axios';
 
 const AdminCrimes = () => {
   const [crimes, setCrimes] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [editFormData, setEditFormData] = useState({});
+
 
   useEffect(() => {
     fetchCrimes();
@@ -68,105 +70,111 @@ const AdminCrimes = () => {
 
   return (
     <>
-    <Navbar />
+      <Navbar />
       <Navthird />
-    <div style={{ padding: '2rem', fontFamily: 'Arial, sans-serif' }}>
-      <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>Admin - Manage Crimes</h2>
+      <div style={{ padding: '2rem', fontFamily: 'Arial, sans-serif' }}>
+        <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>Admin - Manage Crimes</h2>
 
-      <table
-        style={{
-          width: '100%',
-          borderCollapse: 'collapse',
-          boxShadow: '0 0 12px rgba(0,0,0,0.1)',
-          borderRadius: '8px',
-          overflow: 'hidden',
-        }}
-      >
-        <thead style={{ backgroundColor: '#4CAF50', color: '#fff' }}>
-          <tr>
-            <th style={thStyle}>Title</th>
-            <th style={thStyle}>Description</th>
-            <th style={thStyle}>Location</th>
-            <th style={thStyle}>Image</th>
-            <th style={thStyle}>Status</th>
-            <th style={thStyle}>Date</th>
-            <th style={thStyle}>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {crimes.length === 0 ? (
+        <table
+          style={{
+            width: '100%',
+            borderCollapse: 'collapse',
+            boxShadow: '0 0 12px rgba(0,0,0,0.1)',
+            borderRadius: '8px',
+            overflow: 'hidden',
+          }}
+        >
+          <thead style={{ backgroundColor: '#4CAF50', color: '#fff' }}>
             <tr>
-              <td colSpan="7" style={{ textAlign: 'center', padding: '1rem' }}>No crimes found</td>
+              <th style={thStyle}>Title</th>
+              <th style={thStyle}>Description</th>
+              <th style={thStyle}>Location</th>
+              <th style={thStyle}>Image</th>
+              <th style={thStyle}>Status</th>
+              <th style={thStyle}>Date</th>
+              <th style={thStyle}>Actions</th>
             </tr>
-          ) : (
-            crimes.map(crime => (
-              <tr key={crime._id} style={{ borderBottom: '1px solid #ddd' }}>
-                {editingId === crime._id ? (
-                  <>
-                    <td style={tdStyle}>
-                      <input name="crimetitle" value={editFormData.crimetitle} onChange={handleInputChange} />
-                    </td>
-                    <td style={tdStyle}>
-                      <input name="crimedesc" value={editFormData.crimedesc} onChange={handleInputChange} />
-                    </td>
-                    <td style={tdStyle}>
-                      <input name="crimelocation" value={editFormData.crimelocation} onChange={handleInputChange} />
-                    </td>
-                    <td style={tdStyle}>
-                      <input name="images" value={editFormData.images} onChange={handleInputChange} />
-                    </td>
-                    <td style={tdStyle}>{crime.status}</td>
-                    <td style={tdStyle}>{new Date(crime.createdAt).toLocaleString()}</td>
-                    <td style={tdStyle}>
-                      <button style={saveBtn} onClick={handleSave}>Save</button>
-                      <button style={cancelBtn} onClick={() => setEditingId(null)}>Cancel</button>
-                    </td>
-                  </>
-                ) : (
-                  <>
-                    <td style={tdStyle}>{crime.crimetitle}</td>
-                    <td style={tdStyle}>{crime.crimedesc}</td>
-                    <td style={tdStyle}>{crime.crimelocation}</td>
-                    <td style={tdStyle}>
-                      <img
-                        src={crime.images}
-                        alt="crime"
-                        style={{ width: '40px', height: '40px', objectFit: 'cover' }}
-                        onError={(e) => {
-                          e.target.onerror = null;
-                          e.target.src = '/crime-icons/default.png';
-                        }}
-                      />
-                    </td>
-                    <td style={tdStyle}>
-                      <span style={{
-                        padding: '5px 10px',
-                        borderRadius: '4px',
-                        backgroundColor:
-                          crime.status === 'resolved' ? '#d4edda' :
-                            crime.status === 'pending' ? '#fff3cd' : '#f8d7da',
-                        color:
-                          crime.status === 'resolved' ? '#155724' :
-                            crime.status === 'pending' ? '#856404' : '#721c24',
-                        fontWeight: 'bold',
-                      }}>
-                        {crime.status}
-                      </span>
-                    </td>
-                    <td style={tdStyle}>{new Date(crime.createdAt).toLocaleString()}</td>
-                    <td style={tdStyle}>
-                      <button style={statusBtn} onClick={() => handleStatusChange(crime._id, 'resolved')}>Mark Solved</button>
-                      <button style={editBtn} onClick={() => handleEdit(crime)}>Edit</button>
-                      <button style={deleteBtn} onClick={() => handleDelete(crime._id)}>Delete</button>
-                    </td>
-                  </>
-                )}
+          </thead>
+          <tbody>
+            {crimes.length === 0 ? (
+              <tr>
+                <td colSpan="7" style={{ textAlign: 'center', padding: '1rem' }}>No crimes found</td>
               </tr>
-            ))
-          )}
-        </tbody>
-      </table>
-    </div>
+            ) : (
+              crimes.map(crime => (
+                <tr key={crime._id} style={{ borderBottom: '1px solid #ddd' }}>
+                  {editingId === crime._id ? (
+                    <>
+                      <td style={tdStyle}>
+                        <input name="crimetitle" value={editFormData.crimetitle} onChange={handleInputChange} />
+                      </td>
+                      <td style={tdStyle}>
+                        <input name="crimedesc" value={editFormData.crimedesc} onChange={handleInputChange} />
+                      </td>
+                      <td style={tdStyle}>
+                        <input name="crimelocation" value={editFormData.crimelocation} onChange={handleInputChange} />
+                      </td>
+                      <td style={tdStyle}>
+                        <input name="images" value={editFormData.images} onChange={handleInputChange} />
+                      </td>
+                      <td style={tdStyle}>{crime.status}</td>
+                      <td style={tdStyle}>{new Date(crime.createdAt).toLocaleString()}</td>
+                      <td style={tdStyle}>
+                        <button style={saveBtn} onClick={handleSave}>Save</button>
+                        <button style={cancelBtn} onClick={() => setEditingId(null)}>Cancel</button>
+                      </td>
+
+                    </>
+                  ) : (
+                    <>
+                      <td style={tdStyle}>{crime.crimetitle}</td>
+                      <td style={tdStyle}>{crime.crimedesc}</td>
+                      <td style={tdStyle}>{crime.crimelocation}</td>
+                      <td style={tdStyle}>
+                        <img
+                          src={crime.images}
+                          alt="crime"
+                          style={{ width: '40px', height: '40px', objectFit: 'cover' }}
+                          onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = '/crime-icons/default.png';
+                          }}
+                        />
+                      </td>
+                      <td style={tdStyle}>
+                        <span style={{
+                          padding: '5px 10px',
+                          borderRadius: '4px',
+                          backgroundColor:
+                            crime.status === 'resolved' ? '#d4edda' :
+                              crime.status === 'pending' ? '#fff3cd' : '#f8d7da',
+                          color:
+                            crime.status === 'resolved' ? '#155724' :
+                              crime.status === 'pending' ? '#856404' : '#721c24',
+                          fontWeight: 'bold',
+                        }}>
+                          {crime.status}
+                        </span>
+                      </td>
+                      <td style={tdStyle}>{new Date(crime.createdAt).toLocaleString()}</td>
+                      <td style={tdStyle}>
+                        <CrimeMap
+                          lat={crime.crimelocation.match(/Lat:\s*([-\d.]+)/)[1]}
+                          lng={crime.crimelocation.match(/Lng:\s*([-\d.]+)/)[1]}
+                        />
+                        <button style={statusBtn} onClick={() => handleStatusChange(crime._id, 'resolved')}>Mark Solved</button>
+                        <button style={editBtn} onClick={() => handleEdit(crime)}>Edit</button>
+                        <button style={deleteBtn} onClick={() => handleDelete(crime._id)}>Delete</button>
+                      </td>
+                    </>
+                  )}
+                </tr>
+
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
     </>
   );
 };
@@ -197,6 +205,7 @@ const statusBtn = {
   backgroundColor: '#007bff',
   color: '#fff',
 };
+
 
 const editBtn = {
   ...buttonBase,
