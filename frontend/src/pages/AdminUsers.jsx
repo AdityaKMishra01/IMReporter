@@ -14,7 +14,7 @@ const AdminUsers = () => {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get('http://localhost:8000/api/auth/users');
+      const res = await axios.get('http://192.168.29.170:8000/api/auth/users');
       setUsers(res.data);
     } catch (error) {
       alert('Failed to fetch users');
@@ -39,7 +39,7 @@ const AdminUsers = () => {
 
   const handleSaveClick = async () => {
     try {
-      await axios.put(`http://localhost:8000/api/auth/users/${editingUserId}`, editFormData);
+      await axios.put(`http://192.168.29.170:8000/api/auth/users/${editingUserId}`, editFormData);
       alert('User updated successfully');
       setEditingUserId(null);
       setEditFormData({});
@@ -53,7 +53,7 @@ const AdminUsers = () => {
   const handleDeleteClick = async (userId) => {
     if (!window.confirm('Are you sure you want to delete this user?')) return;
     try {
-      await axios.delete(`http://localhost:8000/api/auth/users/${userId}`);
+      await axios.delete(`http://192.168.29.170:8000/api/auth/users/${userId}`);
       alert('User deleted successfully');
       fetchUsers();
     } catch (error) {

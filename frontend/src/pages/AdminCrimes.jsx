@@ -16,7 +16,7 @@ const AdminCrimes = () => {
 
   const fetchCrimes = async () => {
     try {
-      const res = await axios.get('http://localhost:8000/api/crimes/getallcrimes');
+      const res = await axios.get('http://192.168.29.170:8000/api/crimes/getallcrimes');
       setCrimes(res.data);
     } catch (error) {
       alert('Failed to fetch crimes');
@@ -27,7 +27,7 @@ const AdminCrimes = () => {
   const handleDelete = async (id) => {
     if (!window.confirm('Delete this crime record?')) return;
     try {
-      await axios.delete(`http://localhost:8000/api/crimes/${id}`);
+      await axios.delete(`http://192.168.29.170:8000/api/crimes/${id}`);
       alert('Deleted successfully');
       fetchCrimes();
     } catch (err) {
@@ -48,7 +48,7 @@ const AdminCrimes = () => {
 
   const handleSave = async () => {
     try {
-      await axios.put(`http://localhost:8000/api/crimes/${editingId}`, editFormData);
+      await axios.put(`http://192.168.29.170:8000/api/crimes/${editingId}`, editFormData);
       alert('Updated successfully');
       setEditingId(null);
       fetchCrimes();
@@ -60,7 +60,7 @@ const AdminCrimes = () => {
 
   const handleStatusChange = async (id, status) => {
     try {
-      await axios.put(`http://localhost:8000/api/crimes/${id}`, { status });
+      await axios.put(`http://192.168.29.170:8000/api/crimes/${id}`, { status });
       fetchCrimes();
     } catch (err) {
       alert('Failed to update status');

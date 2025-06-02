@@ -9,7 +9,7 @@ const Crimecard = () => {
   useEffect(() => {
     const fetchCrimes = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/crimes/getallcrimes');
+        const response = await axios.get('http://192.168.29.170:8000/api/crimes/getallcrimes');
         setCrimes(response.data); // Make sure backend returns an array
       } catch (error) {
         console.error('Error fetching crimes:', error);

@@ -8,7 +8,7 @@ const app = express()
 
 //MiddleWare
 app.use(express.json())
-app.use(cors())
+app.use(cors({ origin: '*' }));
 connectDB()
 
 
@@ -16,6 +16,6 @@ app.use('/api/auth',authRoutes)
 app.use('/api/crimes',crimeRoute)
 
 
-app.listen(8000,()=>{
+app.listen(8000,'0.0.0.0',()=>{
     console.log('port is running on 8000')
 })

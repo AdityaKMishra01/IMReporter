@@ -45,7 +45,7 @@ const Signup = () => {
     };
 
     try {
-      const res = await axios.post("http://localhost:8000/api/auth/register", formData);
+      const res = await axios.post("http://192.168.29.170:8000/api/auth/register", formData);
       alert(res.data.message);
       navigate("/login");
     } catch (err) {

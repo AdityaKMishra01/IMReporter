@@ -38,20 +38,31 @@ const Register = () => {
   };
 
   const fetchLocation = () => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const loc = `Lat: ${position.coords.latitude}, Lng: ${position.coords.longitude}`;
-        setFormData((prev) => ({
-          ...prev,
-          crimelocation: loc,
-        }));
-      },
-      (error) => {
-        alert('Failed to fetch location.');
-        console.error(error);
-      }
-    );
-  };
+  if (!navigator.geolocation) {
+    alert('Geolocation is not supported by your browser');
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const loc = `Lat: ${position.coords.latitude}, Lng: ${position.coords.longitude}`;
+      setFormData((prev) => ({
+        ...prev,
+        crimelocation: loc,
+      }));
+    },
+    (error) => {
+      alert(`Location fetch failed: ${error.message}`);
+      console.error('Geolocation error:', error);
+    },
+    {
+      enableHighAccuracy: true,
+      timeout: 10000,
+      maximumAge: 0,
+    }
+  );
+};
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -73,7 +84,7 @@ const Register = () => {
 
     try {
       setIsLoading(true);
-      await axios.post('http://localhost:8000/api/crimes/registercrime', data);
+      await axios.post('http://192.168.29.170:8000/api/crimes/registercrime', data);
       alert('Crime reported successfully!');
       setFormData({
         crimetitle: '',

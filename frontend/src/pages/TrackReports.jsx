@@ -9,7 +9,7 @@ const TrackReports = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:8000/api/crimes/getallcrimes')
+      .get('http://192.168.29.170:8000/api/crimes/getallcrimes')
       .then(response => {
         setCrimes(response.data);
       })
