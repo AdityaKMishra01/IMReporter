@@ -41,7 +41,7 @@ const Login = () => {
 
       setFirstname(firstname);
 
-      if (role === "admin") {
+      if (role === "admin" && userid) {
         navigate("/");
       } else {
         navigate("/register");

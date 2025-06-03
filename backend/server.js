@@ -8,7 +8,11 @@ const app = express()
 
 //MiddleWare
 app.use(express.json())
-app.use(cors({ origin: '*' }));
+app.use(cors({
+  origin: 'http://192.168.29.170:5173',
+  credentials: true
+}));
+
 connectDB()
 
 

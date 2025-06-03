@@ -6,9 +6,9 @@ const NewsCards = () => {
 
   useEffect(() => {
     axios
-      .get("https://newsapi.org/v2/everything?q=crime+india&apiKey=759a00a3600b4583b5b227a65a214295")
+      .get("https://newsdata.io/api/1/latest?apikey=pub_2eacda44ce6f42f1bbed7efae20ed228&q=criminals")
       .then((res) => {
-        setArticles(res.data.articles);
+        setArticles(res.data.results); // Changed from res.data.articles to res.data.results
       })
       .catch((err) => {
         console.error("Error fetching news:", err);
@@ -17,11 +17,11 @@ const NewsCards = () => {
 
   return (
     <div style={{ padding: "20px", backgroundColor: "#f4f4f4" }}>
-      <h2 style={{ textAlign: "center", marginBottom: "30px" }}>📰 Crime News from India</h2>
+      <h2 style={{ textAlign: "center", marginBottom: "30px" }}>📰 Crime News</h2>
       <div style={{ display: "flex", flexWrap: "wrap", gap: "20px", justifyContent: "center" }}>
         {articles.map((article, index) => (
           <div
-            key={index}
+            key={article.article_id || index}
             style={{
               width: "300px",
               backgroundColor: "#fff",
@@ -33,18 +33,32 @@ const NewsCards = () => {
               flexDirection: "column"
             }}
           >
-            {article.urlToImage && (
-              <img src={article.urlToImage} alt={article.title} style={{ width: "100%", height: "180px", objectFit: "cover" }} />
+            {article.image_url && (
+              <img 
+                src={article.image_url} 
+                alt={article.title} 
+                style={{ 
+                  width: "100%", 
+                  height: "180px", 
+                  objectFit: "cover" 
+                }} 
+                onError={(e) => {
+                  e.target.style.display = 'none'; // Hide image if it fails to load
+                }}
+              />
             )}
             <div style={{ padding: "15px", flex: 1 }}>
               <h3 style={{ fontSize: "18px", marginBottom: "10px" }}>{article.title}</h3>
-              <p style={{ fontSize: "14px", color: "#555" }}>{article.description}</p>
+              <p style={{ fontSize: "14px", color: "#555" }}>
+                {article.description || "No description available"}
+              </p>
               <p style={{ fontSize: "12px", color: "#888", marginTop: "10px" }}>
-                <strong>Source:</strong> {article.source.name} <br />
-                <strong>Author:</strong> {article.author || "Unknown"}
+                <strong>Source:</strong> {article.source_name} <br />
+                <strong>Author:</strong> {article.creator ? article.creator.join(", ") : "Unknown"} <br />
+                <strong>Published:</strong> {new Date(article.pubDate).toLocaleString()}
               </p>
               <a
-                href={article.url}
+                href={article.link}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
