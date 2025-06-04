@@ -100,5 +100,3 @@ git push origin feature-branch
 
 ---
 
-## 🌟 Show Some Love
-If you like this project, please ⭐ the repository! 😊
